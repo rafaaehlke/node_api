@@ -10,7 +10,8 @@
   "license": "ISC",
   "description": "Api desenvolvida no stage 08 da RocketSeat, formação Explorer",
   "dependencies": {
-    "express": "^4.21.1"
+    "express": "^4.21.1",
+    "express-async-errors": "^3.1.1"
   },
   "devDependencies": {
     "nodemon": "^3.1.7"
