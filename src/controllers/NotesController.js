@@ -32,6 +32,22 @@ class NotesController {
 
     response.json()
   }
+
+  async show(request, response) {
+    const { id } = request.params
+
+    // busca as notas, baseada no ID e retorna sempre 1 nota especifica, com o metodo FIRST
+    const note = await knex("notes").where({ id }).first()
+
+    const tags = await knex("tags").where({ note_id: id }).orderBy("name")
+    const links = await knex("links").where({ note_id: id }).orderBy("created_at")
+
+    return response.json({
+      ...note,
+      tags,
+      links
+    })
+  }
 }
 
 module.exports = NotesController
