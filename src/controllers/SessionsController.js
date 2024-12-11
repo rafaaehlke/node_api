@@ -1,15 +1,17 @@
-const knex = require("../database/knex")
-const AppError = require("../utils/AppError")
-const { compare } = require("bcryptjs")
 const authConfig = require("../configs/auth")
+const AppError = require("../utils/AppError")
+const knex = require("../database/knex")
 const { sign } = require("jsonwebtoken")
+const { compare } = require("bcryptjs")
 
 class SessionsController {
   async create(request, response) {
     const { email, password } = request.body
 
+    // busca dentro de users e retorna o primeiro email
     const user = await knex("users").where({ email }).first()
 
+    // verifica se o email digitado é valido com já cadastrado
     if (!user) {
       throw new AppError("Email e/ou senha incorreta", 401)
     }
