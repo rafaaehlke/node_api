@@ -1,9 +1,9 @@
-const { Verify } = require("jsonwebtoken")
+const { verify } = require("jsonwebtoken")
 const AppError = require("../utils/AppError")
-const {jwt} = require("../configs/auth")
+const authConfig = require("../configs/auth")
 
 function ensureAuthenticated(request, response, next) {
-  const authHeader = request.headers.authorization //obtem o cabeçalho jwt
+  const authHeader = request.headers.authorization; //obtem o cabeçalho jwt
 
   // Verifica se existe token, se nao existir retorna o erro
   if (!authHeader) {
@@ -11,7 +11,7 @@ function ensureAuthenticated(request, response, next) {
   }
 
   // Separa o bare antes do token com espaçamento
-  const [, token] = authHeader.split(",")
+  const [, token] = authHeader.split(" ")
 
 
   try {
